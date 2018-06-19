@@ -20,7 +20,6 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
-import com.appsflyer.AppsFlyerLib;
 import com.wavesplatform.wallet.R;
 import com.wavesplatform.wallet.data.connectivity.ConnectivityStatus;
 import com.wavesplatform.wallet.databinding.FragmentPinEntryBinding;
@@ -31,9 +30,6 @@ import com.wavesplatform.wallet.ui.fingerprint.FingerprintDialog;
 import com.wavesplatform.wallet.util.DialogButtonCallback;
 import com.wavesplatform.wallet.util.ViewUtils;
 import com.wavesplatform.wallet.util.annotations.Thunk;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -289,11 +285,6 @@ public class PinEntryFragment extends Fragment implements PinEntryViewModel.Data
         viewModel.checkFingerprintStatus();
     }
 
-    private void trackNewWallet() {
-        Map<String, Object> eventValue = new HashMap<String, Object>();
-        AppsFlyerLib.getInstance().trackEvent(getContext(), "af_new_wallet", eventValue);
-    }
-
     @Override
     public void finishWithResultOk(String password) {
         Bundle bundle = new Bundle();
@@ -301,7 +292,6 @@ public class PinEntryFragment extends Fragment implements PinEntryViewModel.Data
         Intent intent = new Intent();
         intent.putExtras(bundle);
         getActivity().setResult(RESULT_OK, intent);
-        trackNewWallet();
         getActivity().finish();
     }
 
