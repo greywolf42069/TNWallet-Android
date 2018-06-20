@@ -50,7 +50,7 @@
                     android:textSize="14sp"
                     tools:text="April 2015" />
 
-                <com.wavesplatform.wallet.ui.customviews.AutoResizeTextView
+                <com.tn.wallet.ui.customviews.AutoResizeTextView
                     android:id="@+id/counter_party"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
                     android:layout_marginRight="4dp"
-                    android:text="WAVES"
+                    android:text="TN"
                     android:textColor="@color/blockchain_grey"
                     android:textSize="12sp"
                     tools:text="0.123456" />

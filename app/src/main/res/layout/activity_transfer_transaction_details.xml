@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.wavesplatform.wallet.ui.transactions.TransactionDetailViewModel" />
+            type="com.tn.wallet.ui.transactions.TransactionDetailViewModel" />
         <import type="android.view.View"/>
     </data>
 
@@ -58,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <com.wavesplatform.wallet.ui.customviews.AutoResizeTextView
+                        <com.tn.wallet.ui.customviews.AutoResizeTextView
                             android:id="@+id/transaction_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
                             android:textColor="@{viewModel.transactionColor}"
                             android:textSize="20sp"
                             android:maxLines="1"
-                            tools:text="700,500.23456789 WAVES"
+                            tools:text="700,500.23456789 TN"
                             tools:textColor="@color/blockchain_receive_green" />
 
                         <android.support.v7.widget.AppCompatTextView
@@ -76,7 +76,7 @@
                             android:textColor="@color/light_grey_text"
                             android:textSize="14sp"
                             android:text="@{viewModel.transactionFee}"
-                            tools:text="Transaction fee: 0.001 WAVES" />
+                            tools:text="Transaction fee: 0.02 TN" />
 
                     </LinearLayout>
 
@@ -137,7 +137,7 @@
                         android:textColor="@color/blockchain_grey"
                         android:textSize="14sp" />
 
-                    <com.wavesplatform.wallet.ui.customviews.AutoResizeTextView
+                    <com.tn.wallet.ui.customviews.AutoResizeTextView
                         android:id="@+id/assetName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
                         android:text="@{viewModel.assetName}"
                         tools:text="WCT" />
 
-                    <com.wavesplatform.wallet.ui.customviews.AutoResizeTextView
+                    <com.tn.wallet.ui.customviews.AutoResizeTextView
                         android:id="@+id/assetId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -190,9 +190,9 @@
                         android:textSize="16sp"
                         android:text="@{viewModel.toAddressLabel}"
                         android:visibility="@{viewModel.toAddressLabel != null ? View.VISIBLE : View.GONE}"
-                        tools:text="My WAVES Wallet" />
+                        tools:text="My TN Wallet" />
 
-                    <com.wavesplatform.wallet.ui.customviews.AutoResizeTextView
+                    <com.tn.wallet.ui.customviews.AutoResizeTextView
                         android:id="@+id/to_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -222,9 +222,9 @@
                         android:textSize="16sp"
                         android:text="@{viewModel.fromAddressLabel}"
                         android:visibility="@{viewModel.fromAddressLabel != null ? View.VISIBLE : View.GONE}"
-                        tools:text="My WAVES Wallet" />
+                        tools:text="My TN Wallet" />
 
-                    <com.wavesplatform.wallet.ui.customviews.AutoResizeTextView
+                    <com.tn.wallet.ui.customviews.AutoResizeTextView
                         android:id="@+id/from_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

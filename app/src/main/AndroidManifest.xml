@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.wavesplatform.wallet"
+    package="com.tn.wallet"
     android:installLocation="auto">
 
     <uses-sdk tools:overrideLibrary="com.mtramin.rxfingerprint" />
@@ -14,14 +14,14 @@
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <application
-        android:name=".BlockchainApplication"
+        android:name="com.tn.wallet.BlockchainApplication"
         android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.launcher.LauncherActivity"
+            android:name="com.tn.wallet.ui.launcher.LauncherActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask">
             <intent-filter>
@@ -32,85 +32,85 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
-                <data android:scheme="waves" />
+                <data android:scheme="TN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.home.MainActivity"
+            android:name="com.tn.wallet.ui.home.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppTheme.MainActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.dex.markets.add.AddMarketActivity"
+            android:name="com.tn.wallet.ui.dex.markets.add.AddMarketActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name=".ui.auth.PinEntryActivity"
+            android:name="com.tn.wallet.ui.auth.PinEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name=".ui.dex.markets.MarketsActivity"
+            android:name="com.tn.wallet.ui.dex.markets.MarketsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name=".ui.auth.LandingActivity"
+            android:name="com.tn.wallet.ui.auth.LandingActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name=".ui.pairing.ImportOrCreateWalletActivity"
+            android:name="com.tn.wallet.ui.pairing.ImportOrCreateWalletActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.auth.PasswordWalletActivity"
+            android:name="com.tn.wallet.ui.auth.PasswordWalletActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.auth.SeedWalletActivity"
+            android:name="com.tn.wallet.ui.auth.SeedWalletActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.auth.ChooseWalletActivity"
+            android:name="com.tn.wallet.ui.auth.ChooseWalletActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.assets.AssetsActivity"
+            android:name="com.tn.wallet.ui.assets.AssetsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name=".ui.backup.BackupWalletActivity"
+            android:name="com.tn.wallet.ui.backup.BackupWalletActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name=".ui.auth.LogoutActivity"
+            android:name="com.tn.wallet.ui.auth.LogoutActivity"
             android:excludeFromRecents="true"
             android:noHistory="true"
             android:theme="@android:style/Theme.NoDisplay" />
         <activity
-            android:name=".ui.zxing.CaptureActivity"
+            android:name="com.tn.wallet.ui.zxing.CaptureActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name=".ui.transactions.TransactionDetailActivity"
+            android:name="com.tn.wallet.ui.transactions.TransactionDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ui.assets.IssueAssetsActivity"
+            android:name="com.tn.wallet.ui.assets.IssueAssetsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.transactions.IssueDetailActivity"
+            android:name="com.tn.wallet.ui.transactions.IssueDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ui.transactions.ReissueDetailActivity"
+            android:name="com.tn.wallet.ui.transactions.ReissueDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ui.transactions.UnknownDetailActivity"
+            android:name="com.tn.wallet.ui.transactions.UnknownDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ui.dex.details.DexDetailsActivity"
+            android:name="com.tn.wallet.ui.dex.details.DexDetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ui.dex.details.order.PlaceOrderActivity"
+            android:name="com.tn.wallet.ui.dex.details.order.PlaceOrderActivity"
             android:windowSoftInputMode="stateHidden" />
 
         <meta-data
@@ -127,7 +127,7 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".ui.transactions.ExchangeTransactionActivity"></activity>
+        <activity android:name="com.tn.wallet.ui.transactions.ExchangeTransactionActivity"></activity>
     </application>
 
 </manifest>

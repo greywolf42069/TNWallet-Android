@@ -223,7 +223,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_gravity="right"
-                                android:text="WAVES"
+                                android:text="TN"
                                 android:textColor="@color/blockchain_grey"/>
                         </LinearLayout>
 

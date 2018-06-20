@@ -90,7 +90,7 @@
 
         </LinearLayout>
 
-        <com.wavesplatform.wallet.ui.customviews.PinEntryKeypad
+        <com.tn.wallet.ui.customviews.PinEntryKeypad
             android:id="@+id/keyboard"
             android:background="@color/blockchain_blue"
             android:layout_width="match_parent"

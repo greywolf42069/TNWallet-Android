@@ -129,8 +129,8 @@
 
 
 # ALSO REMEMBER KEEPING YOUR MODEL CLASSES
--keep class com.wavesplatform.wallet.payload.** { *; }
--keep class com.wavesplatform.wallet.api.** { *; }
+-keep class com.tn.wallet.payload.** { *; }
+-keep class com.tn.wallet.api.** { *; }
 
 -keepattributes Signature
 -keepattributes *Annotation*
@@ -160,7 +160,7 @@
 -keepattributes EnclosingMethod
 -keepattributes InnerClasses
 
--keep class com.wavesplatform.wallet.data.services.** {*;}
--keepclassmembers class com.wavesplatform.wallet.data.services.** {*;}
--keep class com.wavesplatform.wallet.data.access.** {*;}
--keepclassmembers class com.wavesplatform.wallet.data.access.** {*;}
+-keep class com.tn.wallet.data.services.** {*;}
+-keepclassmembers class com.tn.wallet.data.services.** {*;}
+-keep class com.tn.wallet.data.access.** {*;}
+-keepclassmembers class com.tn.wallet.data.access.** {*;}

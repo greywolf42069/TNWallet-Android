@@ -7,6 +7,6 @@
     </base-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">52.30.47.67</domain>
-        <domain includeSubdomains="true">nodes.wavesnodes.com</domain>
+        <domain includeSubdomains="true">privatenode.blackturtle.eu</domain>
     </domain-config>
 </network-security-config>

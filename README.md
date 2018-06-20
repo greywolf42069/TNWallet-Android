@@ -1,2 +1,2 @@
-# WavesWallet-android
-Waves Wallet on Android
+# TNWallet-android
+TN Wallet on Android
