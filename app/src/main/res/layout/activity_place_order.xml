@@ -214,7 +214,7 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_gravity="right"
                                 android:gravity="right"
-                                android:text="0.003"
+                                android:text="0.04"
                                 android:textColor="@color/black"
                                 android:textSize="18sp"/>
 

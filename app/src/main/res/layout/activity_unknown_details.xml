@@ -77,7 +77,7 @@
                             android:textColor="@color/light_grey_text"
                             android:textSize="14sp"
                             android:text="@{viewModel.transactionFee}"
-                            tools:text="Transaction fee: 0.001 TN" />
+                            tools:text="Transaction fee: 0.02 TN" />
 
                     </LinearLayout>
 
