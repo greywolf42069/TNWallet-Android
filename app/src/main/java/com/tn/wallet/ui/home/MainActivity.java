@@ -423,7 +423,7 @@ public class MainActivity extends BaseAuthActivity implements TransactionsFragme
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         returningResult = true;
 
-        if (requestCode == PermissionUtil.PERMISSION_REQUEST_CAMERA) {
+        if (requestCode == PermissionUtil.PERMISSION_REQUEST_CAMERA ) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startScanActivity();
             } else {

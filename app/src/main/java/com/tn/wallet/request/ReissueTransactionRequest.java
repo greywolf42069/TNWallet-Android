@@ -12,7 +12,7 @@ import com.tn.wallet.payload.ReissueTransaction;
 import com.tn.wallet.util.AddressUtil;
 
 public class ReissueTransactionRequest {
-    public static int MinFee = 100000000;
+    public static int MinFee = 1000000000;
 
     final public String assetId;
     final public String senderPublicKey;

@@ -9,7 +9,7 @@ import com.tn.wallet.crypto.CryptoProvider;
 
 public class OrderRequest {
 
-    public static int MinFee = 300000;
+    public static int MinFee = 4000000;
 
     public String senderPublicKey;
     public String matcherPublicKey;

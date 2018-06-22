@@ -42,6 +42,7 @@ public class WatchlistMarketsAdapter extends BaseQuickAdapter<WatchMarket, BaseV
         baseViewHolder
                 .setText(R.id.text_markets_pair, String.format("%s/%s", market.market.amountAssetName,  market.market.priceAssetName))
                 .setText(R.id.text_high, String.format(mContext.getString(R.string.dex_watchlist_markets_high, market.tickerMarket.high24h)))
+                .setText(R.id.text_vol, String.format(mContext.getString(R.string.dex_watchlist_markets_vol, market.tickerMarket.volume24h)))
                 .setText(R.id.text_low, String.format(mContext.getString(R.string.dex_watchlist_markets_low, market.tickerMarket.low24h)))
                 .setText(R.id.text_price_diff, MoneyUtil.getTextStripZeros(new BigDecimal(market.tradesMarket.price).subtract(new BigDecimal(market.tickerMarket.open24h)).toPlainString()))
                 .setText(R.id.text_percent, Double.isInfinite((((Double.valueOf(market.tradesMarket.price) - Double.valueOf(market.tickerMarket.open24h))  * 100) / Double.valueOf(market.tickerMarket.open24h))) ? "0%" : String.valueOf(MoneyUtil.round((((Double.valueOf(market.tradesMarket.price) - Double.valueOf(market.tickerMarket.open24h))  * 100) / Double.valueOf(market.tickerMarket.open24h)), 2) + "%"))

@@ -16,7 +16,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 public class IssueTransactionRequest {
     public static int MaxDescriptionLength = 1000;
-    public static int MinFee = 100000000;
+    public static long MinFee = 1000_00000000L;
     public static int MaxAssetNameLength = 16;
     public static int MinAssetNameLength = 4;
     public static int MaxDecimals = 8;

@@ -608,6 +608,7 @@
     <string name="delete_market">Delete market</string>
     <string name="dex.watchlist_markets_low">Low: %s</string>
     <string name="dex.watchlist_markets_high">High: %s</string>
+    <string name="dex.watchlist_markets_vol">Volume: %s</string>
     <string name="dex.details.toolbar_title">%1$s/%2$s</string>
 
     <!--Place Order-->

@@ -16,7 +16,7 @@ public class TransferTransactionRequest {
     public static int SignatureLength = 64;
     public static int KeyLength = 32;
     public static int MaxAttachmentSize = 140;
-    public static int MinFee = 100000;
+    public static int MinFee = 2000000;
 
     public String assetId;
     public String senderPublicKey;

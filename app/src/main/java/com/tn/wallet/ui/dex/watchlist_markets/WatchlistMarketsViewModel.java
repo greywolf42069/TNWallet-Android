@@ -34,7 +34,7 @@ public class WatchlistMarketsViewModel extends BaseViewModel {
     DataListener dataListener;
     private Context context;
     public final String defaultAmount = "TN";
-    public final String defaultPrice = "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS";
+    public final String defaultPrice = "5Asy9P3xjcvBAgbeyiitZhBRJZJ2TPGSZJz9ihDTnB3d";
     private Market defaultMarket;
 
     @Inject
