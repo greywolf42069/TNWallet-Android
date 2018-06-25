@@ -43,6 +43,7 @@ import com.tn.wallet.ui.customviews.MaterialProgressDialog;
 import com.tn.wallet.ui.customviews.ToastCustom;
 import com.tn.wallet.ui.dex.watchlist_markets.WatchlistMarketsFragment;
 import com.tn.wallet.ui.launcher.LauncherActivity;
+import com.tn.wallet.ui.leasing.LeaseFragment;
 import com.tn.wallet.ui.receive.ReceiveFragment;
 import com.tn.wallet.ui.send.SendFragment;
 import com.tn.wallet.ui.zxing.CaptureActivity;
@@ -63,7 +64,8 @@ public class MainActivity extends BaseAuthActivity implements TransactionsFragme
         MainViewModel.DataListener,
         SendFragment.OnSendFragmentInteractionListener,
         ReceiveFragment.OnReceiveFragmentInteractionListener,
-        WatchlistMarketsFragment.OnDexFragmentInteractionListener {
+        WatchlistMarketsFragment.OnDexFragmentInteractionListener,
+        LeaseFragment.OnLeaseFragmentInteractionListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -122,9 +124,10 @@ public class MainActivity extends BaseAuthActivity implements TransactionsFragme
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.transactions_nav, R.drawable.ic_transactions, R.color.blockchain_pearl_white);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.receive_nav, R.drawable.vector_receive, R.color.blockchain_pearl_white);
         AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.dex_nav, R.drawable.vector_dex, R.color.blockchain_pearl_white);
+        AHBottomNavigationItem item5 = new AHBottomNavigationItem(R.string.leasing, R.drawable.vector_dex, R.color.blockchain_pearl_white);
 
         // Add items
-        binding.bottomNavigation.addItems(Arrays.asList(item1, item2, item3, item4));
+        binding.bottomNavigation.addItems(Arrays.asList(item1, item2, item3, item4, item5));
 
         // Styling
         binding.bottomNavigation.setAccentColor(ContextCompat.getColor(this, R.color.blockchain_blue));
@@ -160,6 +163,8 @@ public class MainActivity extends BaseAuthActivity implements TransactionsFragme
                         AccessState.getInstance().setOnDexScreens(true);
                         startDexFragment();
                         break;
+                    case 4:
+                        startLeaseFragment();
                 }
             } else {
                 if (position == 1 && getCurrentFragment() instanceof TransactionsFragment) {
@@ -510,6 +515,20 @@ public class MainActivity extends BaseAuthActivity implements TransactionsFragme
         startFragmentWithAnimation(sendFragment);
     }
 
+    public void startLeaseFragment() {
+        int selectedAccountPosition;
+        try {
+            selectedAccountPosition = ((TransactionsFragment) getCurrentFragment()).getSelectedAccountPosition();
+        } catch (Exception e) {
+            Log.e(TAG, "startSendFragment: ", e);
+            selectedAccountPosition = -1;
+        }
+
+        LeaseFragment leaseFragment = LeaseFragment.newInstance(selectedAccountPosition);
+        startFragmentWithAnimation(leaseFragment);
+    }
+
+
     public void startReceiveFragment() {
         int selectedAccountPosition;
         try {
@@ -576,6 +595,16 @@ public class MainActivity extends BaseAuthActivity implements TransactionsFragme
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public void onLeaseFragmentClose() {
+        binding.bottomNavigation.setCurrentItem(3);
+    }
+
+    @Override
+    public void onLeaseFragmentStart() {
+        binding.bottomNavigation.setCurrentItem(4);
     }
 
 

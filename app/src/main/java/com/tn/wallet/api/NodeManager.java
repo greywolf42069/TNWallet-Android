@@ -14,6 +14,7 @@ import com.tn.wallet.payload.Transaction;
 import com.tn.wallet.payload.TransactionsInfo;
 import com.tn.wallet.payload.TransferTransaction;
 import com.tn.wallet.request.IssueTransactionRequest;
+import com.tn.wallet.request.LeaseTransactionRequest;
 import com.tn.wallet.request.ReissueTransactionRequest;
 import com.tn.wallet.request.TransferTransactionRequest;
 import com.tn.wallet.ui.auth.EnvironmentManager;
@@ -165,6 +166,10 @@ public class NodeManager {
 
     public Observable<TransferTransactionRequest> broadcastTransfer(TransferTransactionRequest tx) {
         return service.broadcastTransfer(tx);
+    }
+
+    public Observable<LeaseTransactionRequest> broadcastLease(LeaseTransactionRequest tx) {
+        return service.broadcastLease(tx);
     }
 
     public Observable<IssueTransactionRequest> broadcastIssue(IssueTransactionRequest tx) {

@@ -15,6 +15,7 @@
     <string name="receive_nav">Receive</string>
     <string name="transactions_nav">Transactions</string>
     <string name="dex_nav">DEX</string>
+    <string name="leasing">Leasing</string>
 
     <string name="cancel">Cancel</string>
     <string name="yes">Yes</string>

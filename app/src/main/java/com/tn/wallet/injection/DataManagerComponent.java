@@ -16,6 +16,7 @@ import com.tn.wallet.ui.dex.watchlist_markets.WatchlistMarketsViewModel;
 import com.tn.wallet.ui.fingerprint.FingerprintDialogViewModel;
 import com.tn.wallet.ui.home.MainViewModel;
 import com.tn.wallet.ui.launcher.LauncherViewModel;
+import com.tn.wallet.ui.leasing.LeaseViewModel;
 import com.tn.wallet.ui.pairing.PairingViewModel;
 import com.tn.wallet.ui.dex.details.order.PlaceOrderViewModel;
 import com.tn.wallet.ui.receive.ReceiveViewModel;
@@ -48,6 +49,8 @@ public interface DataManagerComponent {
     void inject(MarketsViewModel marketsViewModel);
 
     void inject(SendViewModel sendViewModel);
+
+    void inject(LeaseViewModel leaseViewModel);
 
     void inject(ChartViewModel chartViewModel);
 
