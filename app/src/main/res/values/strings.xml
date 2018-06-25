@@ -154,6 +154,7 @@
     <string name="identifier">Identifier</string>
     <string name="reissuable">Reissuable</string>
 
+    <string name="confirm_lease_details">Confirm Lease</string>
     <string name="confirm_details">Confirm Payment</string>
     <string name="fee">Fee</string>
     <string name="attachment">Attachment</string>

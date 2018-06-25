@@ -24,13 +24,11 @@ public class LeaseConfirmationDetails {
     }
 
     public static LeaseConfirmationDetails fromRequest(LeaseTransactionRequest req) {
-        System.out.println("req.fee: " + req.fee);
         LeaseConfirmationDetails d = new LeaseConfirmationDetails();
         d.fromLabel = NodeManager.get().getAddress();
         d.toLabel = req.recipient;
         d.amount = MoneyUtil.getDisplayWaves(req.amount);
         d.fee = MoneyUtil.getDisplayWaves(req.fee);
-        System.out.println ("d.fee: " + d.fee);
         return d;
 
     }

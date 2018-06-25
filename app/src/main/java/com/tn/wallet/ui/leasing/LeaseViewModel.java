@@ -199,15 +199,12 @@ public class LeaseViewModel extends BaseViewModel {
 
     void sendClicked() {
         confirmPayment();
-        System.out.println ("send clicked!");
 
         if (dataListener != null)
             dataListener.hideKeyboard();
 
-        System.out.println("test");
         int res = validateTransfer(leaseModel.getTxRequest());
 
-        System.out.print("res: " + res);
         if (res == 0) {
             confirmPayment();
         } else {
@@ -224,7 +221,6 @@ public class LeaseViewModel extends BaseViewModel {
     void confirmPayment() {
         LeaseConfirmationDetails details = LeaseConfirmationDetails.fromRequest(leaseModel.getTxRequest());
 
-        System.out.println("dataListener: " + dataListener);
         if (dataListener != null)
             dataListener.onShowLeaseDetails(details);
     }
@@ -271,7 +267,6 @@ public class LeaseViewModel extends BaseViewModel {
     public void submitLease(LeaseTransactionRequest signed) {
         NodeManager.get().broadcastLease(signed)
                 .compose(RxUtil.applySchedulersToObservable()).subscribe(tx -> {
-                    System.out.println ("leaseing tx: " + tx);
             if (dataListener != null)
                 dataListener.onShowLeaseSuccess(signed);
         }, err -> {

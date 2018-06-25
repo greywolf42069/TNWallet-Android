@@ -42,6 +42,8 @@ import com.tn.wallet.data.connectivity.ConnectivityStatus;
 import com.tn.wallet.data.datamanagers.AddressBookManager;
 import com.tn.wallet.databinding.FragmentLeaseBinding;
 //import com.tn.wallet.databinding.FragmentSendBinding;
+import com.tn.wallet.databinding.FragmentLeaseConfirmBinding;
+import com.tn.wallet.databinding.FragmentLeaseSuccessBinding;
 import com.tn.wallet.databinding.FragmentSendConfirmBinding;
 import com.tn.wallet.databinding.FragmentSendSuccessBinding;
 import com.tn.wallet.request.LeaseTransactionRequest;
@@ -411,17 +413,17 @@ public class LeaseFragment extends Fragment implements LeaseViewModel.DataListen
         getActivity().runOnUiThread(() -> ToastCustom.makeText(getActivity(), getString(message), ToastCustom.LENGTH_SHORT, toastType));
     }
 
-    private void toggleFavorite(String address, FragmentSendSuccessBinding binding) {
+    private void toggleFavorite(String address, FragmentLeaseSuccessBinding binding) {
         if (AddressBookManager.get().getAll().containsKey(address)) {
             binding.btnFavorite.setImageResource(R.drawable.ic_star);
             binding.btnFavorite.setOnClickListener(null);
         }
     }
 
-    private AlertDialog createSendSuccessDialog(TransferTransactionRequest signed) {
+    private AlertDialog createLeaseSuccessDialog(LeaseTransactionRequest signed) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        FragmentSendSuccessBinding dialogBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()),
-                R.layout.fragment_send_success, null, false);
+        FragmentLeaseSuccessBinding dialogBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()),
+                R.layout.fragment_lease_success, null, false);
         dialogBuilder.setView(dialogBinding.getRoot());
 
         AlertDialog successDialog= dialogBuilder.create();
@@ -429,7 +431,7 @@ public class LeaseFragment extends Fragment implements LeaseViewModel.DataListen
         dialogBinding.btnDone.setOnClickListener(v -> successDialog.dismiss());
         dialogBinding.ivCheck.setOnClickListener(v -> successDialog.dismiss());
 
-        final AddressBookManager.AddressBookListener listener = new AddressBookManager.AddressBookListener() {
+        /*final AddressBookManager.AddressBookListener listener = new AddressBookManager.AddressBookListener() {
             @Override
             public void onAddressAdded(String address, String name) {
                 LocalBroadcastManager.getInstance(getActivity()).sendBroadcastSync(new Intent(TransactionsFragment.ACTION_INTENT));
@@ -442,12 +444,11 @@ public class LeaseFragment extends Fragment implements LeaseViewModel.DataListen
 
         dialogBinding.btnFavorite.setOnClickListener(v -> {
             AddressBookManager.createEnterNameDialog(getContext(), signed.recipient, listener).show();
-        });
+        });*/
 
         toggleFavorite(signed.recipient, dialogBinding);
 
         return successDialog;
-
     }
 
     /*@Override
@@ -483,7 +484,35 @@ public class LeaseFragment extends Fragment implements LeaseViewModel.DataListen
 
     @Override
     public void onShowLeaseSuccess(LeaseTransactionRequest signed) {
-        // TODO!
+        getActivity().runOnUiThread(() -> {
+            confirmDialog.cancel();
+            confirmDialog.dismiss();
+            System.out.println("confirmDialog closed!");
+            playAudio();
+
+            NodeManager.get().addPendingTransaction(signed.createDisplayTransaction());
+            LocalBroadcastManager.getInstance(getActivity()).sendBroadcastSync(new Intent(TransactionsFragment.ACTION_INTENT));
+
+            final AlertDialog successDialog = createLeaseSuccessDialog(signed);
+
+            AppRate appRate = new AppRate(getActivity())
+                    .setMinTransactionsUntilPrompt(3)
+                    .incrementTransactionCount();
+
+            // If should show app rate, success dialog shows first and launches
+            // rate dialog on dismiss. Dismissing rate dialog then closes the page. This will
+            // happen if the user chooses to rate the app - they'll return to the main page.
+            if (appRate.shouldShowDialog()) {
+                AlertDialog ratingDialog = appRate.getRateDialog();
+                ratingDialog.setOnDismissListener(d -> finishPage());
+                successDialog.show();
+                successDialog.setOnDismissListener(d -> ratingDialog.show());
+            } else {
+                successDialog.show();
+                successDialog.setOnDismissListener(dialogInterface -> finishPage());
+            }
+
+        });
     }
 
     private void setupAmountView() {
@@ -572,8 +601,8 @@ public class LeaseFragment extends Fragment implements LeaseViewModel.DataListen
     public void onShowLeaseDetails(LeaseConfirmationDetails details) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        FragmentSendConfirmBinding dialogBinding = inflate(LayoutInflater.from(getActivity()),
-                R.layout.fragment_send_confirm, null, false);
+        FragmentLeaseConfirmBinding dialogBinding = inflate(LayoutInflater.from(getActivity()),
+                R.layout.fragment_lease_confirm, null, false);
         dialogBuilder.setView(dialogBinding.getRoot());
 
         confirmDialog= dialogBuilder.create();
@@ -584,7 +613,7 @@ public class LeaseFragment extends Fragment implements LeaseViewModel.DataListen
         dialogBinding.confirmAmount.setText(details.amount);
         dialogBinding.confirmFee.setText(details.fee);
 
-        dialogBinding.confirmCancel.setOnClickListener(v -> {
+        dialogBinding.confirmLeaseCancel.setOnClickListener(v -> {
             if (confirmDialog.isShowing()) {
                 confirmDialog.cancel();
             }
@@ -610,7 +639,7 @@ public class LeaseFragment extends Fragment implements LeaseViewModel.DataListen
 
     }
 
-    private void confirmSend(FragmentSendConfirmBinding dialogBinding) {
+    private void confirmSend(FragmentLeaseConfirmBinding dialogBinding) {
         dialogBinding.confirmSend.setClickable(false);
 
         LeaseTransactionRequest signed = viewModel.signTransaction();

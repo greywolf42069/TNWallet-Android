@@ -30,7 +30,6 @@ public class LeaseModel extends BaseObservable {
     public String verifiedSecondPassword;
 
     public LeaseTransactionRequest getTxRequest() {
-        System.out.println("LeaseModel.customFee: " + customFee);
         LeaseTransactionRequest tx = new LeaseTransactionRequest(
                 NodeManager.get().getPublicKeyStr(),
                 destinationAddress,

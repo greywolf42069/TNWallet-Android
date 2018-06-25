@@ -8,6 +8,7 @@ import com.google.common.primitives.Longs;
 import com.tn.wallet.crypto.Base58;
 import com.tn.wallet.crypto.CryptoProvider;
 import com.tn.wallet.crypto.Hash;
+import com.tn.wallet.payload.LeaseTransaction;
 import com.tn.wallet.payload.TransferTransaction;
 import com.tn.wallet.util.AddressUtil;
 import com.tn.wallet.util.SignUtil;
@@ -31,7 +32,6 @@ public class LeaseTransactionRequest {
 
     public LeaseTransactionRequest(String senderPublicKey, String recipient, long amount,
                                    long timestamp, long fee) {
-        System.out.println("leaseTransactionRequest.fee: " + fee);
         this.senderPublicKey = senderPublicKey;
         this.recipient = recipient;
         this.amount = amount;
@@ -62,5 +62,14 @@ public class LeaseTransactionRequest {
             signature = Base58.encode(CryptoProvider.sign(privateKey, toSignBytes()));
         }
     }
+
+    public LeaseTransaction createDisplayTransaction() {
+        LeaseTransaction tt = new LeaseTransaction(8, Base58.encode(Hash.fastHash(toSignBytes())),
+                AddressUtil.addressFromPublicKey(senderPublicKey), timestamp, amount, fee,
+                recipient);
+        tt.isPending = true;
+        return tt;
+    }
+
 
 }
