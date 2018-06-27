@@ -599,7 +599,7 @@ public class MainActivity extends BaseAuthActivity implements TransactionsFragme
 
     @Override
     public void onLeaseFragmentClose() {
-        binding.bottomNavigation.setCurrentItem(4);
+        binding.bottomNavigation.setCurrentItem(1);
     }
 
     @Override

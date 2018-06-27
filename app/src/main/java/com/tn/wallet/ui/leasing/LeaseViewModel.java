@@ -198,8 +198,6 @@ public class LeaseViewModel extends BaseViewModel {
     }
 
     void sendClicked() {
-        confirmPayment();
-
         if (dataListener != null)
             dataListener.hideKeyboard();
 

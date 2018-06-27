@@ -485,9 +485,6 @@ public class LeaseFragment extends Fragment implements LeaseViewModel.DataListen
     @Override
     public void onShowLeaseSuccess(LeaseTransactionRequest signed) {
         getActivity().runOnUiThread(() -> {
-            confirmDialog.cancel();
-            confirmDialog.dismiss();
-            System.out.println("confirmDialog closed!");
             playAudio();
 
             NodeManager.get().addPendingTransaction(signed.createDisplayTransaction());
@@ -606,7 +603,8 @@ public class LeaseFragment extends Fragment implements LeaseViewModel.DataListen
         dialogBuilder.setView(dialogBinding.getRoot());
 
         confirmDialog= dialogBuilder.create();
-        confirmDialog.setCanceledOnTouchOutside(false);
+        confirmDialog.setCanceledOnTouchOutside(true);
+        confirmDialog.setCancelable(true);
 
         dialogBinding.confirmFromLabel.setText(details.fromLabel);
         dialogBinding.confirmToLabel.setText(details.toLabel);
@@ -619,7 +617,10 @@ public class LeaseFragment extends Fragment implements LeaseViewModel.DataListen
             }
         });
 
-        dialogBinding.confirmSend.setOnClickListener(v -> {
+        dialogBinding.confirmLeaseButton.setOnClickListener(v -> {
+            confirmDialog.dismiss();
+            confirmDialog.cancel();
+
             if (ConnectivityStatus.hasConnectivity(getActivity())) {
                 confirmSend(dialogBinding);
             } else {
@@ -640,7 +641,7 @@ public class LeaseFragment extends Fragment implements LeaseViewModel.DataListen
     }
 
     private void confirmSend(FragmentLeaseConfirmBinding dialogBinding) {
-        dialogBinding.confirmSend.setClickable(false);
+        //dialogBinding.confirmLeaseButton.setClickable(false);
 
         LeaseTransactionRequest signed = viewModel.signTransaction();
         if (signed != null) {
