@@ -12,7 +12,9 @@ import com.tn.wallet.request.TransferTransactionRequest;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import static com.tn.wallet.request.TransferTransactionRequest.SignatureLength;
 import static org.junit.Assert.assertEquals;
@@ -103,6 +105,14 @@ public class NodeManagerTest {
             System.out.println(resp);
         }, err -> {
             System.out.println(err);
+        });
+    }
+
+    @Test
+    public void spamAssets() throws Exception {
+        SpamManager.createInstance();
+        SpamManager.get().getSpamAssets().blockingSubscribe(spam -> {
+            System.out.println(spam);
         });
     }
 

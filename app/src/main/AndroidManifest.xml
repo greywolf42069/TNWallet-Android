@@ -106,7 +106,12 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="com.tn.wallet.ui.dex.details.DexDetailsActivity"
+
+            android:name="com.tn.wallet.ui.transactions.MassTransferDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.dex.details.DexDetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden" />
         <activity

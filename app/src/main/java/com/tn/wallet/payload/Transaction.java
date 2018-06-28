@@ -32,6 +32,10 @@ public class Transaction {
         this.fee = fee;
     }
 
+    public String getAssetId() {
+        return null;
+    }
+
     public String getDisplayAmount() {
         return MoneyUtil.getDisplayWaves(amount);
     }

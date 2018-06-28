@@ -1,6 +1,7 @@
 package com.tn.wallet.injection;
 
 import com.tn.wallet.data.datamanagers.AddressBookManager;
+import com.tn.wallet.injection.DataManagerModule;
 import com.tn.wallet.ui.assets.IssueViewModel;
 import com.tn.wallet.ui.auth.LandingViewModel;
 import com.tn.wallet.ui.auth.PinEntryViewModel;
@@ -26,6 +27,7 @@ import com.tn.wallet.ui.transactions.IssueDetailViewModel;
 import com.tn.wallet.ui.transactions.ReissueDetailViewModel;
 import com.tn.wallet.ui.transactions.TransactionDetailViewModel;
 import com.tn.wallet.ui.transactions.UnknownDetailViewModel;
+import com.tn.wallet.ui.transactions.MassTransferDetailViewModel;
 
 import dagger.Subcomponent;
 
@@ -65,6 +67,8 @@ public interface DataManagerComponent {
     void inject(ReceiveViewModel receiveViewModel);
 
     void inject(TransactionDetailViewModel transactionDetailViewModel);
+
+    void inject(MassTransferDetailViewModel massTransferDetailViewModel);
 
     void inject(FingerprintDialogViewModel fingerprintDialogViewModel);
 

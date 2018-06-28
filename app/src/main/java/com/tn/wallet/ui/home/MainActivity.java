@@ -20,6 +20,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -51,10 +52,10 @@ import com.tn.wallet.util.AndroidUtils;
 import com.tn.wallet.util.AppUtil;
 import com.tn.wallet.util.DateUtil;
 import com.tn.wallet.util.PermissionUtil;
+import com.tn.wallet.util.PrefsUtil;
 import com.tn.wallet.util.StringBuilderPlus;
 import com.tn.wallet.util.ViewUtils;
 import com.tn.wallet.util.annotations.Thunk;
-
 import java.util.Arrays;
 
 import static com.tn.wallet.ui.auth.PinEntryFragment.KEY_VALIDATING_PIN_FOR_RESULT;
@@ -84,12 +85,14 @@ public class MainActivity extends BaseAuthActivity implements TransactionsFragme
     private long backPressed;
     private boolean returningResult = false;
     private Toolbar toolbar;
+    private PrefsUtil prefsUtil;
 
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        prefsUtil = new PrefsUtil(this);
         appUtil = new AppUtil(this);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
@@ -173,6 +176,16 @@ public class MainActivity extends BaseAuthActivity implements TransactionsFragme
             }
 
             return true;
+        });
+
+        // Configure spam filter
+        MenuItem spamFilterItem = binding.nvView.getMenu().findItem(R.id.action_spam_filter);
+
+        boolean spamFilterValue = prefsUtil.getValue(PrefsUtil.KEY_DISABLE_SPAM_FILTER, false);
+        ((SwitchCompat) spamFilterItem.getActionView()).setChecked(spamFilterValue);
+
+        ((SwitchCompat) spamFilterItem.getActionView()).setOnCheckedChangeListener((buttonView, isChecked) -> {
+            prefsUtil.setValue(PrefsUtil.KEY_DISABLE_SPAM_FILTER, isChecked);
         });
 
 
