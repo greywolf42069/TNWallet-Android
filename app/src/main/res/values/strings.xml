@@ -15,6 +15,7 @@
     <string name="receive_nav">Receive</string>
     <string name="transactions_nav">Transactions</string>
     <string name="dex_nav">DEX</string>
+    <string name="leasing">Leasing</string>
 
     <string name="cancel">Cancel</string>
     <string name="yes">Yes</string>
@@ -155,6 +156,7 @@
     <string name="identifier">Identifier</string>
     <string name="reissuable">Reissuable</string>
 
+    <string name="confirm_lease_details">Confirm Lease</string>
     <string name="confirm_details">Confirm Payment</string>
     <string name="fee">Fee</string>
     <string name="attachment">Attachment</string>

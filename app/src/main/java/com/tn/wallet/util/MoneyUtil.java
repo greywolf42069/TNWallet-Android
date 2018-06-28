@@ -112,6 +112,7 @@ public class MoneyUtil {
 
     public static long getUnscaledValue(String amount, AssetBalance ab) {
 
+
         return getUnscaledValue(amount, ab.getDecimals());
     }
 
