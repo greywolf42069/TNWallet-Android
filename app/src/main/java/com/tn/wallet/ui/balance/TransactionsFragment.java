@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.tn.wallet.payload.MassTransferTransaction;
 import com.tooltip.Tooltip;
 import com.tn.wallet.R;
 import com.tn.wallet.api.NodeManager;
@@ -52,6 +53,7 @@ import com.tn.wallet.util.DateUtil;
 import com.tn.wallet.util.ListUtil;
 import com.tn.wallet.util.ViewUtils;
 import com.tn.wallet.util.annotations.Thunk;
+import com.tn.wallet.ui.transactions.MassTransferDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -339,6 +341,8 @@ public class TransactionsFragment extends Fragment implements TransactionsViewMo
             intent = new Intent(getActivity(), ReissueDetailActivity.class);
         else if (tx instanceof ExchangeTransaction)
             intent = new Intent(getActivity(), ExchangeTransactionActivity.class);
+        else if (tx instanceof MassTransferTransaction)
+            intent = new Intent(getActivity(), MassTransferDetailActivity.class);
         else
             intent = new Intent(getActivity(), UnknownDetailActivity.class);
 

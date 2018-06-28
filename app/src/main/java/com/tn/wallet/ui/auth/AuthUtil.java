@@ -8,6 +8,7 @@ import com.tn.wallet.api.datafeed.DataFeedManager;
 import com.tn.wallet.api.mather.MatherManager;
 import com.tn.wallet.db.DBHelper;
 import com.tn.wallet.ui.home.MainActivity;
+import com.tn.wallet.util.PrefsUtil;
 
 import io.realm.RealmConfiguration;
 
@@ -16,6 +17,8 @@ public class AuthUtil {
         if (NodeManager.createInstance(publicKey) != null) {
             DataFeedManager.createInstance();
             MatherManager.createInstance(publicKey);
+
+            NodeManager.get().setPrefsUtil(new PrefsUtil(parent));
 
             RealmConfiguration config = new RealmConfiguration.Builder()
                     .name(String.format("%s.realm", publicKey))
