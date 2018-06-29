@@ -127,7 +127,7 @@ public class MainActivity extends BaseAuthActivity implements TransactionsFragme
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.transactions_nav, R.drawable.ic_transactions, R.color.blockchain_pearl_white);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.receive_nav, R.drawable.vector_receive, R.color.blockchain_pearl_white);
         AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.dex_nav, R.drawable.vector_dex, R.color.blockchain_pearl_white);
-        AHBottomNavigationItem item5 = new AHBottomNavigationItem(R.string.leasing, R.drawable.vector_dex, R.color.blockchain_pearl_white);
+        AHBottomNavigationItem item5 = new AHBottomNavigationItem(R.string.leasing, R.drawable.vector_leasing, R.color.blockchain_pearl_white);
 
         // Add items
         binding.bottomNavigation.addItems(Arrays.asList(item1, item2, item3, item4, item5));
