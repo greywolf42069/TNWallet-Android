@@ -474,6 +474,7 @@
     <string name="payment_detail_title">Transfer Transaction</string>
     <string name="mass_transfer_detail_title">Mass Transfer Transaction</string>
     <string name="issue_detail_title">Issue Transaction</string>
+    <string name="lease_detail_title">Lease Transaction</string>
     <string name="reissue_detail_title">Reissue Transaction</string>
     <string name="reissue_button">Reissue</string>
     <string name="transaction_detail_attachment_hint">Empty</string>
@@ -653,4 +654,6 @@
     </string-array>
 
     <string name="seed_like_address">It looks like you scan address QR-code instead of seed. Please use correct QR-code.</string>
+    <string name="lease_node">Node</string>
+    <string name="lease_amount">Amount</string>
 </resources>

@@ -5,6 +5,7 @@ import com.tn.wallet.payload.Transaction;
 import com.tn.wallet.payload.TransactionsInfo;
 import com.tn.wallet.payload.WavesBalance;
 import com.tn.wallet.request.IssueTransactionRequest;
+import com.tn.wallet.request.LeaseCancelTransactionRequest;
 import com.tn.wallet.request.LeaseTransactionRequest;
 import com.tn.wallet.request.ReissueTransactionRequest;
 import com.tn.wallet.request.TransferTransactionRequest;
@@ -32,6 +33,9 @@ public interface NodeApi {
 
     @POST("/leasing/broadcast/lease")
     Observable<LeaseTransactionRequest> broadcastLease(@Body LeaseTransactionRequest tx);
+
+    @POST("/leasing/broadcast/cancel")
+    Observable<LeaseCancelTransactionRequest> broadcastLeaseCancel(@Body LeaseCancelTransactionRequest tx);
 
     @POST("/assets/broadcast/transfer")
     Observable<TransferTransactionRequest> broadcastTransfer(@Body TransferTransactionRequest tx);

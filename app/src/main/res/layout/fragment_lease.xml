@@ -124,7 +124,21 @@
                         android:maxLength="17"
                         android:text="@={viewModel.leaseModel.amount}" />
 
+
                 </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:id="@+id/activeLeaseList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"></LinearLayout>
+                </LinearLayout>
 
                <!-- <TextView
                     android:id="@+id/max"

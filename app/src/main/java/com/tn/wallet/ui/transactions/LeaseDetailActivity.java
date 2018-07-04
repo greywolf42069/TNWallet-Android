@@ -21,9 +21,12 @@ import com.tn.wallet.data.access.AccessState;
 import com.tn.wallet.data.connectivity.ConnectivityStatus;
 import com.tn.wallet.data.rxjava.RxUtil;
 import com.tn.wallet.databinding.ActivityIssueDetailsBinding;
-import com.tn.wallet.databinding.FragmentIssueConfirmBinding;
-import com.tn.wallet.databinding.FragmentReissueAssetBinding;
+//import com.tn.wallet.databinding.FragmentIssueConfirmBinding;
+//import com.tn.wallet.databinding.FragmentReissueAssetBinding;
+import com.tn.wallet.databinding.ActivityLeaseDetailsBinding;
 import com.tn.wallet.databinding.FragmentSendSuccessBinding;
+import com.tn.wallet.payload.LeaseCancelTransaction;
+import com.tn.wallet.request.LeaseCancelTransactionRequest;
 import com.tn.wallet.request.ReissueTransactionRequest;
 import com.tn.wallet.ui.auth.PinEntryActivity;
 import com.tn.wallet.ui.balance.TransactionsFragment;
@@ -38,39 +41,53 @@ import static com.tn.wallet.ui.auth.PinEntryFragment.KEY_VALIDATED_PASSWORD;
 import static com.tn.wallet.ui.auth.PinEntryFragment.KEY_VALIDATING_PIN_FOR_RESULT;
 import static com.tn.wallet.ui.auth.PinEntryFragment.REQUEST_CODE_VALIDATE_PIN;
 
-public class IssueDetailActivity extends BaseAuthActivity implements IssueDetailViewModel.IssueDataListener {
+public class LeaseDetailActivity extends BaseAuthActivity implements LeaseDetailViewModel.LeaseDataListener {
 
     public static String KEY_INTENT_ACTIONS_ENABLED = "intent_actions_enabled";
     private final String TAG = getClass().getSimpleName();
 
-    ActivityIssueDetailsBinding mBinding;
-    private IssueDetailViewModel mViewModel;
+    ActivityLeaseDetailsBinding mBinding;
+    private LeaseDetailViewModel mViewModel;
 
-    private AlertDialog reissueDialog;
-    private AlertDialog confirmDialog;
+    //private AlertDialog reissueDialog;
+    //private AlertDialog confirmDialog;
     private AlertDialog successDialog;
+    private String leaseId;
 
-
-    ReissueTransactionRequest reissueRequest;
+    LeaseCancelTransactionRequest leaseCancelRequest;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_lease_details);
-        mViewModel = new IssueDetailViewModel(this, this);
+        mViewModel = new LeaseDetailViewModel(this, this);
         mBinding.setViewModel(mViewModel);
 
+        mBinding.leaseCancelButton.setOnClickListener(event -> {
+            this.leaseId = mViewModel.mTransaction.id;
+
+            leaseCancelRequest = new LeaseCancelTransactionRequest(
+                    NodeManager.get().getPublicKeyStr(), leaseId,
+                    System.currentTimeMillis(), 2000000);
+            if (signTransaction()) {
+                submitLeaseCancel();
+            } else {
+                requestPinDialog();
+            }
+
+        });
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_general);
-        toolbar.setTitle(getResources().getString(R.string.issue_detail_title));
+        toolbar.setTitle(getResources().getString(R.string.lease_detail_title));
         setSupportActionBar(toolbar);
 
         mViewModel.onViewReady();
 
-        setupBottomToolbar();
+        //setupBottomToolbar();
     }
 
-    private void setupBottomToolbar() {
+    /*private void setupBottomToolbar() {
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.reissue_button, R.drawable.ic_add_circle_outline_black_24dp, R.color.blockchain_pearl_white);
 
         // Add items
@@ -106,7 +123,7 @@ public class IssueDetailActivity extends BaseAuthActivity implements IssueDetail
                 reissueBinding.quantity.setError(getString(R.string.invalid_quantity));
                 ToastCustom.makeText(this, getString(R.string.correct_errors), ToastCustom.LENGTH_SHORT, ToastCustom.TYPE_ERROR);
             } else {
-                reissueRequest = new ReissueTransactionRequest(mViewModel.getIdentifier(),
+                leaseCancelRequest = new ReissueTransactionRequest(mViewModel.getIdentifier(),
                         NodeManager.get().getPublicKeyStr(), addQuantity,
                         reissueBinding.reissuable.isChecked(), System.currentTimeMillis());
                 showTransactionDetails();
@@ -116,21 +133,21 @@ public class IssueDetailActivity extends BaseAuthActivity implements IssueDetail
         reissueDialog = dialogBuilder.create();
         reissueDialog.setCanceledOnTouchOutside(false);
         reissueDialog.show();
-    }
+    }*/
 
-    public void showTransactionDetails() {
+    /*public void showTransactionDetails() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         FragmentIssueConfirmBinding dialogBinding = inflate(LayoutInflater.from(this),
                 R.layout.fragment_issue_confirm, null, false);
         dialogBuilder.setView(dialogBinding.getRoot());
 
         dialogBinding.confirmTitle.setText(getString(R.string.confirm_reissue));
-        String nonReissuable = reissueRequest.reissuable ? "" : "NON ";
+        String nonReissuable = leaseCancelRequest.reissuable ? "" : "NON ";
         dialogBinding.issueDetails.setText(Html.fromHtml(
                 getString(R.string.reissue_details, nonReissuable, mViewModel.getAssetName(),
-                        MoneyUtil.getScaledText(reissueRequest.quantity, mViewModel.getDecimals()))));
+                        MoneyUtil.getScaledText(leaseCancelRequest.quantity, mViewModel.getDecimals()))));
 
-        if (!reissueRequest.reissuable) {
+        if (!leaseCancelRequest.reissuable) {
             dialogBinding.nonReissuableNotice.setText(Html.fromHtml(getString(R.string.non_reissuable_notice)));
         } else {
             dialogBinding.nonReissuableNotice.setVisibility(View.GONE);
@@ -164,9 +181,9 @@ public class IssueDetailActivity extends BaseAuthActivity implements IssueDetail
             confirmDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         }
 
-    }
+    }*/
 
-    private void confirmSend(FragmentIssueConfirmBinding dialogBinding) {
+    /*private void confirmSend(FragmentIssueConfirmBinding dialogBinding) {
         dialogBinding.confirmSend.setClickable(false);
 
         if (signTransaction()) {
@@ -181,15 +198,17 @@ public class IssueDetailActivity extends BaseAuthActivity implements IssueDetail
         if (requestCode == REQUEST_CODE_VALIDATE_PIN && resultCode == RESULT_OK && data != null
                 && data.getStringExtra(KEY_VALIDATED_PASSWORD) != null) {
             if (signTransaction()) {
-                submitIssue();
+                submitLeaseCancel();
             }
         }
-    }
+    }*/
 
     public boolean signTransaction() {
         byte[] pk = AccessState.getInstance().getPrivateKey();
+
         if (pk != null) {
-            reissueRequest.sign(pk);
+            leaseCancelRequest.sign(pk);
+
             return true;
         } else {
             return false;
@@ -202,9 +221,9 @@ public class IssueDetailActivity extends BaseAuthActivity implements IssueDetail
         startActivityForResult(intent, REQUEST_CODE_VALIDATE_PIN);
     }
 
-    public void onShowTransactionSuccess(ReissueTransactionRequest signed) {
+    public void onShowTransactionSuccess(LeaseCancelTransactionRequest signed) {
         runOnUiThread(() -> {
-            confirmDialog.cancel();
+            //confirmDialog.cancel();
             SubmitTransactionsUtils.playAudio(this);
 
             NodeManager.get().addPendingTransaction(signed.createDisplayTransaction());
@@ -232,25 +251,30 @@ public class IssueDetailActivity extends BaseAuthActivity implements IssueDetail
     }
 
     private void finishSubmit() {
-        if (confirmDialog != null && confirmDialog.isShowing()) {
+        /*if (confirmDialog != null && confirmDialog.isShowing()) {
             confirmDialog.dismiss();
-        }
+        }*/
         if (successDialog != null && successDialog.isShowing()) {
             successDialog.dismiss();
         }
-        if (reissueDialog != null && reissueDialog.isShowing()) {
+        /*if (reissueDialog != null && reissueDialog.isShowing()) {
             reissueDialog.dismiss();
-        }
+        }*/
     }
 
-    public void submitIssue() {
-        NodeManager.get().broadcastReissue(reissueRequest)
+    public void submitLeaseCancel() {
+        /*NodeManager.get().broadcastReissue(leaseCancelRequest)
                 .compose(RxUtil.applySchedulersToObservable()).subscribe(tx ->
-                onShowTransactionSuccess(reissueRequest), err -> {
+                onShowTransactionSuccess(leaseCancelRequest), err -> {
+            Log.e(TAG, "submitIssue: ", err);
+            ToastCustom.makeText(this, getString(R.string.transaction_failed), ToastCustom.LENGTH_LONG, ToastCustom.TYPE_ERROR);
+        });*/
+        NodeManager.get().broadcastLeaseCancel(leaseCancelRequest)
+                .compose(RxUtil.applySchedulersToObservable()).subscribe(tx ->
+                onShowTransactionSuccess(leaseCancelRequest), err -> {
             Log.e(TAG, "submitIssue: ", err);
             ToastCustom.makeText(this, getString(R.string.transaction_failed), ToastCustom.LENGTH_LONG, ToastCustom.TYPE_ERROR);
         });
-
     }
 
     @Override

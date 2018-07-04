@@ -5,18 +5,20 @@ import android.net.Uri;
 import android.support.annotation.StringRes;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.tn.wallet.R;
 import com.tn.wallet.api.NodeManager;
 import com.tn.wallet.data.access.AccessState;
 import com.tn.wallet.data.rxjava.RxUtil;
 import com.tn.wallet.injection.Injector;
 import com.tn.wallet.payload.AssetBalance;
+import com.tn.wallet.payload.LeaseTransaction;
+import com.tn.wallet.payload.Transaction;
 import com.tn.wallet.request.LeaseTransactionRequest;
 import com.tn.wallet.request.TransferTransactionRequest;
 import com.tn.wallet.ui.assets.AssetsHelper;
 import com.tn.wallet.ui.assets.ItemAccount;
 import com.tn.wallet.ui.assets.LeaseConfirmationDetails;
-import com.tn.wallet.ui.assets.PaymentConfirmationDetails;
 import com.tn.wallet.ui.base.BaseViewModel;
 import com.tn.wallet.ui.customviews.ToastCustom;
 import com.tn.wallet.util.AddressUtil;
@@ -26,6 +28,10 @@ import com.tn.wallet.util.SSLVerifyUtil;
 import com.tn.wallet.util.StringUtils;
 import com.tn.wallet.util.annotations.Thunk;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +47,10 @@ public class LeaseViewModel extends BaseViewModel {
     private Context context;
 
     public LeaseModel leaseModel;
+
+    //private List<LeaseTransaction> leaseTransactions;
+    private LeaseTransaction[] leaseTransactions;
+    private List<ActiveLeaseListener> listeners;
 
     @Inject
     PrefsUtil prefsUtil;
@@ -60,8 +70,49 @@ public class LeaseViewModel extends BaseViewModel {
 
         leaseModel = new LeaseModel();
         leaseModel.defaultSeparator = MoneyUtil.getDefaultDecimalSeparator();
+        listeners = new ArrayList<ActiveLeaseListener>();
 
         sslVerifyUtil.validateSSL();
+        getActiveLeases();
+    }
+
+    public void addActiveLeaseListener(ActiveLeaseListener listener) {
+        listeners.add(listener);
+    }
+
+    private List<LeaseTransaction> getActiveLeases() {
+        Thread th = new Thread(new Runnable() {
+            public void run() {
+                String address = NodeManager.get().getAddress();
+                URL url;
+                HttpURLConnection con;
+                BufferedReader in;
+                String line;
+                StringBuffer activeLeasesBuffer = new StringBuffer();
+
+                try {
+                    url = new URL("http://bi.blackturtle.eu:8080/address/" + address + "/activeLeases");
+                    con = (HttpURLConnection)url.openConnection();
+                    in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    while ((line = in.readLine()) != null) {
+                        activeLeasesBuffer.append(line);
+                    }
+                    Gson gson = new Gson();
+
+                    leaseTransactions = gson.fromJson(activeLeasesBuffer.toString(), LeaseTransaction[].class);
+
+                    for (ActiveLeaseListener listener: listeners) {
+                        listener.activeLeasesReceived(leaseTransactions);
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    Log.e("Wallet", "Error getting active leases: ", ex);
+                }
+            }
+        });
+        th.start();
+
+        return null;
     }
 
     @Override

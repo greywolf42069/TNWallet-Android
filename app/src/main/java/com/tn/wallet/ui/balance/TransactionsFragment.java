@@ -27,7 +27,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.tn.wallet.payload.LeaseTransaction;
 import com.tn.wallet.payload.MassTransferTransaction;
+import com.tn.wallet.ui.transactions.LeaseDetailActivity;
 import com.tooltip.Tooltip;
 import com.tn.wallet.R;
 import com.tn.wallet.api.NodeManager;
@@ -64,6 +66,7 @@ public class TransactionsFragment extends Fragment implements TransactionsViewMo
 
     public static final String ACTION_INTENT = "com.tn.wallet.ui.TransactionsFragment.REFRESH";
     public static final String KEY_TRANSACTION_LIST_POSITION = "transaction_list_position";
+    public static final String TX_AS_JSON = "transaction_as_json";
     public int balanceBarHeight;
     private BalanceHeaderAdapter accountsAdapter;
     @Thunk Communicator comm;
@@ -331,6 +334,7 @@ public class TransactionsFragment extends Fragment implements TransactionsViewMo
     @Thunk
     void goToTransactionDetail( Transaction tx, int position) {
         Intent intent;
+
         if (tx instanceof PaymentTransaction)
             intent = new Intent(getActivity(), TransactionDetailActivity.class);
         else if (tx instanceof TransferTransaction)
@@ -343,7 +347,9 @@ public class TransactionsFragment extends Fragment implements TransactionsViewMo
             intent = new Intent(getActivity(), ExchangeTransactionActivity.class);
         else if (tx instanceof MassTransferTransaction)
             intent = new Intent(getActivity(), MassTransferDetailActivity.class);
-        else
+        else if (tx instanceof LeaseTransaction) {
+            intent = new Intent(getActivity(), LeaseDetailActivity.class);
+        } else
             intent = new Intent(getActivity(), UnknownDetailActivity.class);
 
         intent.putExtra(KEY_TRANSACTION_LIST_POSITION, position);
