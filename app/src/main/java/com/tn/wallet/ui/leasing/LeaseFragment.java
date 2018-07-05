@@ -35,7 +35,9 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.tn.wallet.R;
 import com.tn.wallet.api.NodeManager;
 import com.tn.wallet.data.connectivity.ConnectivityStatus;
@@ -46,6 +48,8 @@ import com.tn.wallet.databinding.FragmentLeaseConfirmBinding;
 import com.tn.wallet.databinding.FragmentLeaseSuccessBinding;
 import com.tn.wallet.databinding.FragmentSendConfirmBinding;
 import com.tn.wallet.databinding.FragmentSendSuccessBinding;
+import com.tn.wallet.payload.LeaseTransaction;
+import com.tn.wallet.payload.Transaction;
 import com.tn.wallet.request.LeaseTransactionRequest;
 import com.tn.wallet.request.TransferTransactionRequest;
 import com.tn.wallet.ui.assets.ItemAccount;
@@ -62,20 +66,26 @@ import com.tn.wallet.ui.send.FeeAdapter;
 import com.tn.wallet.ui.send.FeeItem;
 //import com.tn.wallet.ui.send.SendViewModel;
 //import com.tn.wallet.ui.zxing.CaptureActivity;
+import com.tn.wallet.ui.transactions.LeaseDetailActivity;
 import com.tn.wallet.ui.zxing.CaptureActivity;
 import com.tn.wallet.util.AndroidUtils;
 import com.tn.wallet.util.AppRate;
 import com.tn.wallet.util.AppUtil;
+import com.tn.wallet.util.DateUtil;
 import com.tn.wallet.util.MoneyUtil;
 import com.tn.wallet.util.PermissionUtil;
 import com.tn.wallet.util.ViewUtils;
 import com.tn.wallet.util.annotations.Thunk;
+
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static android.databinding.DataBindingUtil.inflate;
 import static com.tn.wallet.ui.auth.PinEntryFragment.KEY_VALIDATED_PASSWORD;
 import static com.tn.wallet.ui.auth.PinEntryFragment.KEY_VALIDATING_PIN_FOR_RESULT;
 import static com.tn.wallet.ui.auth.PinEntryFragment.REQUEST_CODE_VALIDATE_PIN;
+import static com.tn.wallet.ui.balance.TransactionsFragment.KEY_TRANSACTION_LIST_POSITION;
+import static com.tn.wallet.ui.balance.TransactionsFragment.TX_AS_JSON;
 
 
 public class LeaseFragment extends Fragment implements LeaseViewModel.DataListener {
@@ -137,11 +147,51 @@ public class LeaseFragment extends Fragment implements LeaseViewModel.DataListen
 
         setupViews();
 
+        viewModel.addActiveLeaseListener(new ActiveLeaseListener() {
+            @Override
+            public void activeLeasesReceived(LeaseTransaction[] leaseTransactions) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (LeaseTransaction tx: leaseTransactions) {
+                            DateUtil mDateUtil = new DateUtil(getContext());
+                            View view = LayoutInflater.from(container.getContext()).inflate(R.layout.txs_layout, container, false);
+
+                            ((TextView)view.findViewById(R.id.result)).setText("" + (tx.amount / Math.pow(10, 8)));
+                            ((TextView)view.findViewById(R.id.counter_party)).setText(tx.recipient);
+                            ((TextView)view.findViewById(R.id.units)).setText("TN");
+                            ((TextView)view.findViewById(R.id.ts)).setText(mDateUtil.formatted(tx.timestamp));
+                            binding.activeLeaseList.addView(view);
+                            view.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    System.out.println("tx clicked");
+                                    goToTransactionDetail(tx, 1);
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
 //        if (incomingUri != null) viewModel.handleIncomingUri(incomingUri);
 
         setHasOptionsMenu(true);
 
         return binding.getRoot();
+    }
+
+    void goToTransactionDetail(Transaction tx, int position) {
+        if (tx instanceof LeaseTransaction) {
+            Gson gson = new Gson();
+            Intent intent = new Intent(getActivity(), LeaseDetailActivity.class);
+            //intent.putExtra(KEY_TRANSACTION_LIST_POSITION, position);
+            System.out.println (gson.toJson(tx));
+            intent.putExtra(TX_AS_JSON, gson.toJson(tx));
+            startActivity(intent);
+        }
+
     }
 
     @Override
@@ -314,6 +364,7 @@ public class LeaseFragment extends Fragment implements LeaseViewModel.DataListen
                     }
                 }
         );
+
     }
 
     private void setupEditableSpinner(EditText editText, ReselectSpinner spinner) {

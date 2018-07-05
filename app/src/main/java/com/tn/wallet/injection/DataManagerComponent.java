@@ -24,6 +24,7 @@ import com.tn.wallet.ui.receive.ReceiveViewModel;
 import com.tn.wallet.ui.send.SendViewModel;
 import com.tn.wallet.ui.transactions.ExchangeTransactionDetailViewModel;
 import com.tn.wallet.ui.transactions.IssueDetailViewModel;
+import com.tn.wallet.ui.transactions.LeaseDetailViewModel;
 import com.tn.wallet.ui.transactions.ReissueDetailViewModel;
 import com.tn.wallet.ui.transactions.TransactionDetailViewModel;
 import com.tn.wallet.ui.transactions.UnknownDetailViewModel;
@@ -53,6 +54,8 @@ public interface DataManagerComponent {
     void inject(SendViewModel sendViewModel);
 
     void inject(LeaseViewModel leaseViewModel);
+
+    void inject(LeaseDetailViewModel leaseDetailViewModel);
 
     void inject(ChartViewModel chartViewModel);
 

@@ -7,6 +7,9 @@ import com.tn.wallet.payload.AssetBalance;
 import com.tn.wallet.payload.AssetBalances;
 import com.tn.wallet.payload.ExchangeTransaction;
 import com.tn.wallet.payload.IssueTransaction;
+import com.tn.wallet.payload.LeaseCancelTransaction;
+import com.tn.wallet.payload.LeaseTransaction;
+import com.tn.wallet.payload.LeaseCancelTransaction;
 import com.tn.wallet.payload.MassTransferTransaction;
 import com.tn.wallet.payload.PaymentTransaction;
 import com.tn.wallet.payload.ReissueTransaction;
@@ -14,6 +17,7 @@ import com.tn.wallet.payload.Transaction;
 import com.tn.wallet.payload.TransactionsInfo;
 import com.tn.wallet.payload.TransferTransaction;
 import com.tn.wallet.request.IssueTransactionRequest;
+import com.tn.wallet.request.LeaseCancelTransactionRequest;
 import com.tn.wallet.request.LeaseTransactionRequest;
 import com.tn.wallet.request.ReissueTransactionRequest;
 import com.tn.wallet.request.TransferTransactionRequest;
@@ -73,6 +77,8 @@ public class NodeManager {
                 .registerSubtype(ReissueTransaction.class, "5")
                 .registerSubtype(ExchangeTransaction.class, "7")
                 .registerSubtype(MassTransferTransaction.class, "11")
+                .registerSubtype(LeaseTransaction.class, "8")
+                .registerSubtype(LeaseCancelTransaction.class, "9")
                 .registerDefaultSubtype(Transaction.class, "0");
 
         gson = new GsonBuilder().registerTypeAdapterFactory(typeFactory).create();
@@ -199,6 +205,11 @@ public class NodeManager {
 
     public Observable<LeaseTransactionRequest> broadcastLease(LeaseTransactionRequest tx) {
         return service.broadcastLease(tx);
+    }
+
+    public Observable<LeaseCancelTransactionRequest> broadcastLeaseCancel(LeaseCancelTransactionRequest tx) {
+        System.out.println (tx.toString());
+        return service.broadcastLeaseCancel(tx);
     }
 
     public Observable<IssueTransactionRequest> broadcastIssue(IssueTransactionRequest tx) {

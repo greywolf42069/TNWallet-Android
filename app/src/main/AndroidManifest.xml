@@ -133,6 +133,7 @@
         </provider>
 
         <activity android:name="com.tn.wallet.ui.transactions.ExchangeTransactionActivity"></activity>
+        <activity android:name="com.tn.wallet.ui.transactions.LeaseDetailActivity"></activity>
     </application>
 
 </manifest>
