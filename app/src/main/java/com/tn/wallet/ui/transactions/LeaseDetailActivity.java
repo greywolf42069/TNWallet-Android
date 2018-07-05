@@ -65,6 +65,7 @@ public class LeaseDetailActivity extends BaseAuthActivity implements LeaseDetail
         mBinding.setViewModel(mViewModel);
 
         mBinding.leaseCancelButton.setOnClickListener(event -> {
+            mBinding.leaseCancelButton.setEnabled(false);
             this.leaseId = mViewModel.mTransaction.id;
 
             leaseCancelRequest = new LeaseCancelTransactionRequest(
