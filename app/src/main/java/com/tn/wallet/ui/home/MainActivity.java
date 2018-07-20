@@ -557,9 +557,11 @@ public class MainActivity extends BaseAuthActivity implements TransactionsFragme
 
 
     public void startDexFragment() {
-        int selectedAccountPosition;
+        int selectedAccountPosition = 0;
         try {
-            selectedAccountPosition = ((TransactionsFragment) getCurrentFragment()).getSelectedAccountPosition();
+            if (getCurrentFragment() instanceof TransactionsFragment) {
+                selectedAccountPosition = ((TransactionsFragment) getCurrentFragment()).getSelectedAccountPosition();
+            }
         } catch (Exception e) {
             Log.e(TAG, "startDexFragment: ", e);
             selectedAccountPosition = -1;
