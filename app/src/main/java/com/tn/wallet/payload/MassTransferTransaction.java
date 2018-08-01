@@ -30,7 +30,7 @@ public class MassTransferTransaction extends Transaction {
 
     @Override
     public String getAssetName() {
-        return assetId != null ? NodeManager.get().getAssetName(assetId) : "WAVES";
+        return assetId != null ? NodeManager.get().getAssetName(assetId) : "TN";
     }
 
     public long getSum() {

@@ -57,7 +57,7 @@ public class IssueDetailActivity extends BaseAuthActivity implements IssueDetail
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_lease_details);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_issue_details);
         mViewModel = new IssueDetailViewModel(this, this);
         mBinding.setViewModel(mViewModel);
 
