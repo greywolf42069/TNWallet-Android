@@ -49,7 +49,7 @@ public class EnvironmentManager {
     }
 
     public enum Environment {
-        PRODUCTION(KEY_ENV_PROD, "https://privatenode2.blackturtle.eu", "https://privatematcher.blackturtle.eu/", "https://bot.blackturtle.eu/api/", 'L'),
+        PRODUCTION(KEY_ENV_PROD, "https://privatenode.blackturtle.eu", "https://privatematcher.blackturtle.eu/", "https://bot.blackturtle.eu/api/", 'L'),
         TESTNET(KEY_ENV_TESTNET, "https://apitnetworktest.blackturtle.eu", "https://unknown.blackturtle.eu/", "https://bot.blackturtle.eu/api/", 'l');
 
         private String name;
