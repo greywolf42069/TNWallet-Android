@@ -8,6 +8,7 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">52.30.47.67</domain>
         <domain includeSubdomains="true">privatenode.blackturtle.eu</domain>
+        <domain includeSubdomains="true">privatenode2.blackturtle.eu</domain>
         <domain includeSubdomains="true">privatematcher.blackturtle.eu</domain>
         <domain includeSubdomains="true">www.blackturtle.eu</domain>
     </domain-config>

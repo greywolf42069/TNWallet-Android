@@ -88,6 +88,7 @@ public class MainViewModel extends BaseViewModel {
                         if (dataListener != null) dataListener.onFetchTransactionCompleted();
 
                         String incomingUri = getIcomingUri();
+                        Log.e(TAG, incomingUri);
                         if (!incomingUri.isEmpty()) {
                             if (dataListener != null) dataListener.onScanInput(incomingUri);
                             clearIcomingUri();
