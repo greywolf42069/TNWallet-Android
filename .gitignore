@@ -46,3 +46,5 @@ google-services.json
 
 # Environment URLs
 urls.properties
+
+app/build.gradle
