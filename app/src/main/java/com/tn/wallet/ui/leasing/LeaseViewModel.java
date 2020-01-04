@@ -91,7 +91,7 @@ public class LeaseViewModel extends BaseViewModel {
                 StringBuffer activeLeasesBuffer = new StringBuffer();
 
                 try {
-                    url = new URL("https://bi.blackturtle.eu/address/" + address + "/activeLeases");
+                    url = new URL(EnvironmentManager.get().current().getNodeUrl()+"/leasing/active/" + address);
                     con = (HttpURLConnection)url.openConnection();
                     in = new BufferedReader(new InputStreamReader(con.getInputStream()));
                     while ((line = in.readLine()) != null) {
