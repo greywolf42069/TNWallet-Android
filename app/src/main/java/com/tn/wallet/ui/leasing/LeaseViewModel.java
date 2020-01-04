@@ -19,6 +19,7 @@ import com.tn.wallet.request.TransferTransactionRequest;
 import com.tn.wallet.ui.assets.AssetsHelper;
 import com.tn.wallet.ui.assets.ItemAccount;
 import com.tn.wallet.ui.assets.LeaseConfirmationDetails;
+import com.tn.wallet.ui.auth.EnvironmentManager;
 import com.tn.wallet.ui.base.BaseViewModel;
 import com.tn.wallet.ui.customviews.ToastCustom;
 import com.tn.wallet.util.AddressUtil;
