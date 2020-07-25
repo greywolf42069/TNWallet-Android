@@ -6,10 +6,10 @@
         </trust-anchors>
     </base-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">52.30.47.67</domain>
-        <domain includeSubdomains="true">privatenode.blackturtle.eu</domain>
-        <domain includeSubdomains="true">privatenode2.blackturtle.eu</domain>
-        <domain includeSubdomains="true">privatematcher.blackturtle.eu</domain>
-        <domain includeSubdomains="true">www.blackturtle.eu</domain>
+        <domain includeSubdomains="true">https://api.node.polarity.exchange</domain>
+        <domain includeSubdomains="true">https://api.node.polarity.exchange</domain>
+        <domain includeSubdomains="true">https://api.node.polarity.exchange</domain>
+        <domain includeSubdomains="true">https://dex.polarity.exchange/matcher</domain>
+        <domain includeSubdomains="true">www.polarity.exchange</domain>
     </domain-config>
 </network-security-config>
